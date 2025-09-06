@@ -38,6 +38,7 @@ int hangmanGame()
 		userWord[i] = '_';
 	}
 
+
 	while (!checkWin(userWord, length))
 	{
 		hangManArt(error);
