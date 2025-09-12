@@ -6,6 +6,8 @@
 #include "hangManArt.h"
 #include "wordsLibrary.h"
 
+const char EMPTY_CHAR = '_';
+
 using namespace std;
 
 int checkWin(string userWord, size_t length)
@@ -24,20 +26,14 @@ int checkWin(string userWord, size_t length)
 int hangmanGame()
 {
 	string originalWord = getWord();
-	string userWord;
-	char userCharacter;
-
-	int error = 0;
 
 	size_t length = originalWord.length();
 
-	userWord.resize(length);
+	string userWord(length, EMPTY_CHAR);
 
-	for (int i = 0; i < length; i++)
-	{
-		userWord[i] = '_';
-	}
+	char userGuessChar;
 
+	int error = 0;
 
 	while (!checkWin(userWord, length))
 	{
@@ -45,18 +41,18 @@ int hangmanGame()
 		cout << "\n\n";
 		cout << userWord;
 
-		printf("\n\nEnter a character: ");
-		cin >> userCharacter;
+		cout << "\n\nEnter a character: ";
+		cin >> userGuessChar;
 
-		if (originalWord.find(userCharacter) != string::npos)
+		if (originalWord.find(userGuessChar) != string::npos)
 		{
 			for (int i = 0; i < length; i++)
 			{
-				if (userCharacter == originalWord[i])
+				if (userGuessChar == originalWord[i])
 				{
-					userWord[i] = userCharacter;
+					userWord[i] = userGuessChar;
 				}
-				else if (userWord[i] != '_')
+				else if (userWord[i] != EMPTY_CHAR)
 				{
 					continue;
 				}
@@ -65,12 +61,10 @@ int hangmanGame()
 		else
 		{
 			error++;
-			//system("cls");
 		}
 
 		system("cls");
 	}
-
 
 	return 0;
 }
