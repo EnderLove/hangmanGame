@@ -14,7 +14,7 @@ string getWord()
 
 	size_t length = sizeof(words) / sizeof(words[0]);
 
-	int randomWord = (rand() % length) + 1;
+	int randomWord = (rand() % length);
 
 	return words[randomWord];
 }

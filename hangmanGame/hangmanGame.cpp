@@ -23,6 +23,7 @@ int checkWin(string userWord, size_t length)
 	else return 0;
 }
 
+
 int hangmanGame()
 {
 	string originalWord = getWord();
@@ -40,6 +41,12 @@ int hangmanGame()
 		hangManArt(error);
 		cout << "\n\n";
 		cout << userWord;
+
+		if (error == 7)
+		{
+			cout << "YOU LOSE!!!! :D" << endl;
+			break;
+		}
 
 		cout << "\n\nEnter a character: ";
 		cin >> userGuessChar;
@@ -62,9 +69,7 @@ int hangmanGame()
 		{
 			error++;
 		}
-
 		system("cls");
 	}
-
 	return 0;
 }
