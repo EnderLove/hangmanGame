@@ -1,6 +1,4 @@
 #include <iostream>
-#include <stdio.h>
-#include <time.h>
 #include <string>
 #include "hangmanGame.h"
 #include "hangManArt.h"
@@ -10,66 +8,61 @@ const char EMPTY_CHAR = '_';
 
 using namespace std;
 
-int checkWin(string userWord, size_t length)
+int checkWin(string userWord)
 {
 	int find = 0;
 
-	for (int i = 0; i < length; i++)
+	if (userWord.find(EMPTY_CHAR) == string::npos)
 	{
-		if (userWord[i] == '_') find++;
+		cout << "\nYOU WIN!!!\n";
+		return 1;
 	}
-
-	if (find == 0) return 1;
 	else return 0;
 }
 
+bool checkCharInWord(const string& originalWord, string& userWord, char guess)
+{
+	bool found = false;
+	for (size_t i = 0; i < originalWord.size(); i++)
+	{
+		if (originalWord[i] == guess)
+		{
+			userWord[i] = guess;
+			found = true;
+		}
+	}
+	return found;
+}
 
 int hangmanGame()
 {
 	string originalWord = getWord();
-
-	size_t length = originalWord.length();
-
-	string userWord(length, EMPTY_CHAR);
+	string userWord(originalWord.length(), EMPTY_CHAR);
 
 	char userGuessChar;
 
 	int error = 0;
 
-	while (!checkWin(userWord, length))
+	while (!checkWin(userWord))
 	{
+		if (userWord != originalWord) system("cls");
+		
 		hangManArt(error);
 		cout << "\n\n";
 		cout << userWord;
 
-		if (error == 7)
-		{
-			cout << "YOU LOSE!!!! :D" << endl;
-			break;
-		}
-
 		cout << "\n\nEnter a character: ";
 		cin >> userGuessChar;
 
-		if (originalWord.find(userGuessChar) != string::npos)
-		{
-			for (int i = 0; i < length; i++)
-			{
-				if (userGuessChar == originalWord[i])
-				{
-					userWord[i] = userGuessChar;
-				}
-				else if (userWord[i] != EMPTY_CHAR)
-				{
-					continue;
-				}
-			}
-		}
-		else
-		{
+		if (!checkCharInWord(originalWord, userWord, userGuessChar)) {
 			error++;
 		}
-		system("cls");
+
+		if (error == 7)
+		{
+			cout << "\nYOU LOSE!!!! :D\n" << endl;
+			return 1;
+		}
 	}
-	return 0;
+	return 1;
 }
