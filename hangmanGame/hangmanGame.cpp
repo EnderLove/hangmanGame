@@ -8,13 +8,18 @@ const char EMPTY_CHAR = '_';
 
 using namespace std;
 
-int checkWin(string userWord)
+int checkGameStatus(string userWord, int error)
 {
 	int find = 0;
 
 	if (userWord.find(EMPTY_CHAR) == string::npos)
 	{
 		cout << "\nYOU WIN!!!\n";
+		return 1;
+	}
+	else if (error == 7)
+	{
+		cout << "\nYOU LOSE!!!\n";
 		return 1;
 	}
 	else return 0;
@@ -43,14 +48,10 @@ int hangmanGame()
 
 	int error = 0;
 
-	while (!checkWin(userWord))
-	{
-		if (userWord != originalWord) system("cls");
-		
-		hangManArt(error);
-		cout << "\n\n";
-		cout << userWord;
-
+	while (!checkGameStatus(userWord, error))
+	{ 
+		hangManArt(error, userWord);
+	
 		cout << "\n\nEnter a character: ";
 		cin >> userGuessChar;
 
@@ -58,11 +59,8 @@ int hangmanGame()
 			error++;
 		}
 
-		if (error == 7)
-		{
-			cout << "\nYOU LOSE!!!! :D\n" << endl;
-			return 1;
-		}
+		system("cls");
 	}
+	hangManArt(error, userWord);
 	return 1;
 }

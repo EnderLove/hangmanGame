@@ -1,6 +1,8 @@
 #ifndef HANGMAN_ART_H
 #define HANGMAN_ART_H
 
-void hangManArt(int error);
+#include <string>
+
+void hangManArt(int error, std::string userWord);
 
 #endif // !HANGMAN_ART_H
