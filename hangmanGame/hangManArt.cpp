@@ -1,6 +1,6 @@
-#include "hangManArt.h"
 #include <string>
 #include <iostream>
+#include "hangManArt.h"
 
 using namespace std;
 
@@ -81,10 +81,8 @@ void hangManArt(int error, string userWord)
 		                   {"=================="}
 	};
 
-	
 	switch (error)
 	{
-	//case 1:showArt(hangMan01); break;
 	case 1:showArt(hangMan02); cout << "\n" << userWord << "\n\n"; break;
 	case 2:showArt(hangMan03); cout << "\n" << userWord << "\n\n"; break;
 	case 3:showArt(hangMan04); cout << "\n" << userWord << "\n\n"; break;
@@ -95,6 +93,5 @@ void hangManArt(int error, string userWord)
 
 	default:
 		showArt(hangMan01); cout << "\n" << userWord << "\n\n"; break;
-		break;
 	}
 }
